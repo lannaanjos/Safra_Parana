@@ -126,3 +126,5 @@ max Z = Σ_{k ∈ K} m_k · t · x_k (área de cada combinação x lucro por hec
 
 6. **Domínio:**
    x_k ∈ ℤ₊, para todo k ∈ K
+
+   Maximização da rentabilidade agrícola do Paraná através da distribuição de culturas agrícolas por município.
