@@ -4,7 +4,7 @@ O trabalho descreve a modelagem de dados da agricultura do Paraná, verificando 
 
 ## Por quê?
 
-O tema foi escolhido pois a agricultura é uma das bases da economia paranaense. Somente na safra 2025/26, a CONAB estima mais de 5,4 milhões de hectares de soja no estado. Ainda assim, a escolha do que plantar e onde segue o costume ou o preço do momento, sem considerar custos, produtividade e limites de armazenagem simultaneamente. O tema permite aplicar Pesquisa Operacional a um problema real e evidencia conflitos, como o do trigo, que tem margem negativa no estado enquanto o Brasil importa milhões de toneladas anualmente.
+O tema foi escolhido pois a agricultura é uma das bases da economia paranaense. Entretanto, a escolha do que plantar e onde é baseada no costume ou o preço do momento, sem considerar custos, produtividade e limites de armazenagem simultaneamente. O tema permite aplicar Pesquisa Operacional a um problema real e demonstra incoerências, como a do trigo, que tem margem negativa no estado enquanto o Brasil importa milhões de toneladas anualmente.
 
 ## Descrição do problema
 
@@ -12,15 +12,9 @@ O modelo decide quantos módulos de área, de tamanho fixo, cada combinação de
 
 A margem de cada combinação é a receita por hectare (produtividade × preço ao produtor) menos os custos variável e fixo por hectare. A produtividade não vem pronta na base: ela é derivada dividindo o custo por hectare pelo custo por unidade comercializada. Como as unidades originais variam (sacas de 60 kg, sacas de 25 kg, quilos e toneladas), todos os valores são normalizados para kg/ha, R$/kg e R$/ha.
 
-Como a variável de decisão é inteira, o problema é de Programação Inteira, resolvido por Branch & Bound. A relaxação linear resultaria em quantidades fracionárias de módulos.
+## Por que usar Programação Inteira?
 
-O modelo respeita os seguintes limites:
-
-- **Área de lavoura por município:** a soma das áreas de todas as culturas e safras não pode passar da área plantada total da PAM/IBGE. A PAM conta a dupla safra duas vezes, e o modelo adota a mesma regra de contagem.
-- **Armazenagem por município:** a capacidade estática dos armazéns limita a produção das culturas armazenáveis (grãos, feijão e café). Toda a capacidade é considerada disponível para a produção resultante da otimização.
-- **Área plantada estadual por cultura:** vale para soja, milho, feijão, triticale e café, que são as culturas com dado disponível.
-- **Orçamento do PAA:** limita o valor total da produção familiar que o estado consegue comprar.
-- **Mercado nacional:** teto para soja, milho, trigo e feijão, baseado no balanço de oferta e demanda.
+Como a variável de decisão é inteira, o problema é de Programação Inteira porque a decisão de alocação se dá em módulos indivisíveis, no caso, as áreas de plantio. E como, precisamos verificar a "combinação ótima", usa-se Branch & Bound.
 
 ## Dados
 
