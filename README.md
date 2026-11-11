@@ -33,14 +33,14 @@ O modelo respeita os seguintes limites:
 
 | Arquivo | Uso no modelo | Colunas utilizadas |
 |---|---|---|
-| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `cod_ibge`, `uf`, `produto`, `empreendimento`, `safra`, `ano_mes`, `unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha` |
-| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `ano`, `mes`, `dsc_nivel_comercializacao`, `valor_produto_kg` |
-| `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `cod_ibge`, `nom_municipio`, `uf`, `qtd_capacidade_estatica(t)` |
+| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `uf`, `produto`, `empreendimento`, `safra`, `mes`, `unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha`, `vlr_renda_fator_h` |
+| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `mes`, `dsc_nivel_comercializacao`, `valor_produto_kg` |
+| `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `nom_municipio`, `uf`, `qtd_capacidade_estatica(t)`, `identificacao_armazem` |
 | `levantamento_graos.csv` | Área plantada estadual (grãos) | `ano_agricola`, `uf`, `produto`, `safra`, `area_plantada_mil_ha` |
 | `levantamento_cafe.csv` | Área plantada estadual (café) | `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
 | `ppa_propostas_formalizadas_executadas.csv` | Orçamento do PAA no PR | `ano`, `uf`, `cod_ibge`, `valor_formalizado`, `valor_executado` |
 | `oferta_demanda.csv` | Teto de mercado nacional | `produto`, `dsc_safra`, `producao_1000t`, `importacao_1000t`, `consumo_1000t`, `exportacao_1000t` |
-| PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Cód.`, `Município`, área plantada ou destinada à colheita (Total, ha) |
+| PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Município`, área plantada ou destinada à colheita (Total, ha) |
 
 #### Combinações de município e cultura
 
@@ -80,3 +80,49 @@ O modelo respeita os seguintes limites:
 - O trigo do PR não aparece no `levantamento_graos.csv`, então não há limite de área estadual para ele.
 - O pinhão e o feijão preto têm um único registro de custo cada, e o último custo do triticale é de 2023.
 - Os dados da PAM 2025 são resultados preliminares do IBGE.
+
+## Modelagem formal
+
+### Conjuntos
+
+| Símbolo | Significado |
+|---|---|
+| M | Municípios do estudo (10) |
+| C | Culturas |
+| K | Combinações (m, c) de município e cultura disponíveis na base de custos (18) |
+| K(m) | Combinações do município m |
+| K(c) | Combinações da cultura c |
+| F | Combinações da agricultura familiar |
+| S | Combinações armazenáveis (grãos, feijão e café) |
+| E | Culturas com área plantada estadual disponível (soja, milho, feijão, triticale, café) |
+| N | Culturas com teto de mercado nacional (soja, milho, feijão, trigo) |
+
+### Variável de decisão
+
+x_k ∈ ℤ₊: número de módulos de área destinados à combinação k.
+
+### Função objetivo
+
+Maximizar a margem total do estado, em R$:
+
+max Z = Σ_{k ∈ K} m_k · t · x_k (área de cada combinação x lucro por hectare, somada a todas as combinações)
+
+### Restrições
+
+1. **Área de lavoura por município.** A soma das áreas de todas as culturas e safras não pode passar da área da produção agrícola municipal, que usa a mesma regra de contagem da dupla safra:
+   Σ_{k ∈ K(m)} t · x_k ≤ A_m, para todo m ∈ M
+
+2. **Armazenagem por município.** A produção das culturas armazenáveis não pode passar da capacidade estática (a divisão por 1.000 converte kg em t):
+   Σ_{k ∈ K(m) ∩ S} q_k · t · x_k / 1000 ≤ W_m, para todo m ∈ M
+
+3. **Área plantada estadual por cultura:**
+   Σ_{k ∈ K(c)} t · x_k ≤ E_c, para todo c ∈ E
+
+4. **Orçamento do PAA.** O valor da produção familiar comprada pelo estado não pode passar do orçamento:
+   Σ_{k ∈ F} p_k · q_k · t · x_k ≤ B
+
+5. **Teto de mercado nacional:**
+   Σ_{k ∈ K(c)} q_k · t · x_k ≤ N_c, para todo c ∈ N
+
+6. **Domínio:**
+   x_k ∈ ℤ₊, para todo k ∈ K
