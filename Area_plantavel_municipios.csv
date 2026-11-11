@@ -1,0 +1,50 @@
+﻿"Tabela 5457 - Área plantada ou destinada à colheita, área colhida, quantidade produzida, rendimento médio e valor da produção das lavouras temporárias e permanentes"
+"Variável - Área plantada ou destinada à colheita"
+"Nível";"Cód.";"Município";"Ano x Produto das lavouras temporárias e permanentes"
+"Nível";"Cód.";"Município";"2025"
+"Nível";"Cód.";"Município";"Total"
+"MU";"4104501";"Capanema (PR)";"31063";"Hectares"
+"MU";"4104808";"Cascavel (PR)";"249637";"Hectares"
+"MU";"4106209";"Contenda (PR)";"15843";"Hectares"
+"MU";"4107207";"Dois Vizinhos (PR)";"41713";"Hectares"
+"MU";"4108403";"Francisco Beltrão (PR)";"35697";"Hectares"
+"MU";"4109401";"Guarapuava (PR)";"136230";"Hectares"
+"MU";"4113700";"Londrina (PR)";"139946";"Hectares"
+"MU";"4119905";"Ponta Grossa (PR)";"92263";"Hectares"
+"MU";"4120606";"Prudentópolis (PR)";"92743";"Hectares"
+"MU";"4128104";"Umuarama (PR)";"18732";"Hectares"
+"Fonte: IBGE - Produção Agrícola Municipal"
+
+"Notas"
+"1 - Os municípios sem informação para pelo menos um produto da lavoura não aparecem nas listas;"
+"2 - A partir do ano de 2001 as quantidades produzidas dos produtos abacate, banana, caqui, figo, goiaba, laranja, limão, maçã, mamão, manga, maracujá, marmelo, melancia, melão, pera, pêssego e tangerina passam a ser expressas em toneladas. Nos anos anteriores eram expressas em mil frutos, com exceção da banana, que era expressa em mil cachos. O rendimento médio passa a ser expresso em Kg/ha. Nos anos anteriores era expresso em frutos/ha, com exceção da banana, que era expressa em cachos/ha."
+"3 - Veja em https://sidra.ibge.gov.br/content/documentos/pam/AlteracoesUnidadesMedidaFrutas.pdf um documento com as alterações de unidades de medida das frutíferas ocorridas em 2001 e a tabela de conversão fruto x quilograma."
+"4 - Até 2001, café (em coco), a partir de 2002, café (beneficiado ou em grão)."
+"5 - Os produtos girassol e triticale só apresentam informação a partir de 2005."
+"6 - As quantidades produzidas de abacaxi e de coco-da-baía são expressas em mil frutos e o rendimento médio em frutos/ha."
+"7 - Valores para a categoria Total indisponíveis para as variáveis Quantidade produzida e Rendimento médio, pois as unidades de medida diferem para determinados produtos."
+"8 - Subentende a possibilidade de cultivos sucessivos ou simultâneos (simples, associados e/ou intercalados) no mesmo ano e no mesmo local, podendo, por isto, a área informada da cultura exceder a área geográfica do município."
+"9 - As culturas de abacaxi, cana-de-açúcar, mamona e mandioca são consideradas culturas temporárias de longa duração. Elas costumam ter ciclo vegetativo que ultrapassa 12 meses e, por isso, as informações são computadas nas colheitas realizadas dentro de cada ano civil (12 meses).
+Nestas culturas a área plantada refere-se a área destinada à colheita no ano."
+"10 - A diferença entre a área plantada ou destinada à colheita e a área colhida na lavoura é considerada como área perdida."
+"11 - A variável Área plantada ou destinada à colheita só passou a ser informada a partir de 1988.
+12 - Valor da produção: Variável derivada calculada pela média ponderada das informações de quantidade e preço médio corrente pago ao produtor, de acordo com os períodos de colheita e comercialização de cada produto. As despesas de frete, taxas e impostos não são incluídas no preço.
+
+13 - Os dados do último ano divulgado são RESULTADOS PRELIMINARES e podem sofrer alterações até a próxima divulgação."
+""
+"Legenda"
+"Símbolo";"Significado"
+"-";"Zero absoluto, não resultante de um cálculo ou arredondamento.
+Ex: Em determinado município não existem pessoas de 14 anos de idade sem instrução."
+"0";"Zero resultante de um cálculo ou arredondamento.
+Ex: A inflação do feijão em determinada Região Metropolitana foi 0.
+Determinado município produziu 400 kg de sementes de girassol e os dados da tabela são expressos em toneladas."
+"X";"Valor inibido para não identificar o informante.
+Ex: Determinado município só possui uma empresa produtora de cimento, logo o valor de sua produção deve ser inibido."
+"..";"Valor não se aplica.
+Ex: Não se pode obter o total da produção agrícola em determinado município quando os produtos agrícolas são contabilizados com unidades de medida distintas."
+"...";"Valor não disponível.
+Ex: A produção de feijão em determinado município não foi pesquisada ou determinado município não existia no ano da pesquisa."
+"A a Z
+(exceto X)";"Significa uma faixa de valores. Varia em função da tabela (se for o caso).
+Ex: O nível de precisão da produção estimada de combustíveis está na faixa A (95 a 100%)"
