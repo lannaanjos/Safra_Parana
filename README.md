@@ -4,7 +4,9 @@ O trabalho descreve a modelagem de dados da agricultura do Paraná, verificando 
 
 ## Por quê?
 
-O tema foi escolhido pois a agricultura é uma das bases da economia paranaense. Entretanto, a escolha do que plantar e onde é baseada no costume ou o preço do momento, sem considerar custos, produtividade e limites de armazenagem simultaneamente. O tema permite aplicar Pesquisa Operacional a um problema real e demonstra incoerências, como a do trigo, que tem margem negativa no estado enquanto o Brasil importa milhões de toneladas anualmente.
+A distribuição adequada de culturas agrícolas foi o tema escolhido pois a economia do Paraná se beneficia do agronegócio, que representa cerca de 35% do PIB paranaense. O estado é o 2º maior produtor de grãos do país, destacando-se com o cultivo da soja, milho, trigo e feijão. Segundo o portal [Bem Paraná](https://www.bemparana.com.br/opiniao/parana-recorde-no-agro-traduz-a-forca-da-quarta-maior-economia-do-pais/), somente em 2025, a agricultura estadual rendeu R$ 91,2 bilhões de valor bruto de produção.
+
+Com base nisso, o grupo decidiu analisar a dispersão dos diferentes tipos de culturas pelo Paraná, visando avaliar a estrutura atual e propor uma alternativa que maximize a produção e rentabilidade agrícuola estadual.
 
 ## Descrição do problema
 
