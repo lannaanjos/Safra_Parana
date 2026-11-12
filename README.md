@@ -6,13 +6,26 @@ O trabalho descreve a modelagem de dados da agricultura do Paraná, verificando 
 
 A distribuição adequada de culturas agrícolas foi o tema escolhido pois a economia do Paraná se beneficia do agronegócio, que representa cerca de 35% do PIB paranaense. O estado é o 2º maior produtor de grãos do país, destacando-se com o cultivo da soja, milho, trigo e feijão. Segundo o portal [Bem Paraná](https://www.bemparana.com.br/opiniao/parana-recorde-no-agro-traduz-a-forca-da-quarta-maior-economia-do-pais/), somente em 2025, a agricultura estadual rendeu R$ 91,2 bilhões de valor bruto de produção.
 
-Com base nisso, o grupo decidiu analisar a dispersão dos diferentes tipos de culturas pelo Paraná, visando avaliar a estrutura atual e propor uma alternativa que maximize a produção e rentabilidade agrícuola estadual.
+Com base nisso, o grupo decidiu analisar a dispersão dos diferentes tipos de culturas pelo Paraná pelos municípios representativos, eleitos pela CONAB, visando avaliar a estrutura atual e propor uma alternativa que maximize a produção e rentabilidade agrícuola estadual.
 
 ## Descrição do problema
 
-O modelo decide quantos módulos de área, de tamanho fixo, cada combinação de município e cultura deve receber para maximizar a margem total do Paraná. A base de custos da CONAB cobre dez municípios paranaenses, que somam 18 combinações de município e cultura divididas em três categorias de produtor: agricultura empresarial, agricultura familiar e sociobiodiversidade. Todas as combinações entram num modelo único, em que cada uma carrega a marcação da sua categoria, e os resultados são analisados separadamente por categoria.
+A área cultivável de cada um dos 10 municípios foi dividida em módulos iguais de *x* hectares. O modelo decidirá quantos módulos de cada município serão destinados a cada cultura possível nele para maximizar a produção e rentabilidade total.
 
-A margem de cada combinação é a receita por hectare (produtividade × preço ao produtor) menos os custos variável e fixo por hectare. A produtividade não vem pronta na base: ela é derivada dividindo o custo por hectare pelo custo por unidade comercializada. Como as unidades originais variam (sacas de 60 kg, sacas de 25 kg, quilos e toneladas), todos os valores são normalizados para kg/ha, R$/kg e R$/ha.
+Ao total, com a base de custos da CONAB, temos 18 combinações de município e cultura divididas entre três categorias de produtor: agricultura familiar, sociobiodiversidade e agricultura empresarial. Cada combinação é classificada conforme sua categoria e os resultados seão analisados conforme essa classificação.
+
+Para cada cultura em cada município, calcula-se o lucro por hectare através da receita obtida em um hectare menos o custo variável e o custo fixo desse hectare.
+
+> Lucro por hectare = receita obtida no hectare - custos do hectare
+
+A produtividade é determinada pela quantidade de sacas que um hectar produz. Como a CONAB não informa o quantidade de sacas exatas, utilizamos o seguinte cálculo:
+
+> Produtividade (sacas por hectare) = custo por hectare / custo por saca
+
+Como as unidades variam no dataset original, os valores serão normalizados da seguinte maneira:
+- Produtividade: kg/ha (quilograma por hectare).
+- Preço do quilo vendido: R$/kg (real por quilograma).
+- Valor em dinheiro de um hectare: R$/ha (real por hectare).
 
 ## Por que usar Programação Inteira?
 
