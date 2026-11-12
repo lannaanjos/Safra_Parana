@@ -2,7 +2,7 @@
 
 O trabalho descreve a modelagem de dados da agricultura do Paraná, verificando a melhor combinação de culturas agrícolas em seus municípios com o objetivo de maximizar a rentabilidade agrícola total do estado.
 
-## Por quê?
+## Justificativa do tema
 
 A distribuição adequada de culturas agrícolas foi o tema escolhido pois a economia do Paraná se beneficia do agronegócio, que representa cerca de 35% do PIB paranaense. O estado é o 2º maior produtor de grãos do país, destacando-se com o cultivo da soja, milho, trigo e feijão. Segundo o portal [Bem Paraná](https://www.bemparana.com.br/opiniao/parana-recorde-no-agro-traduz-a-forca-da-quarta-maior-economia-do-pais/), somente em 2025, a agricultura estadual rendeu R$ 91,2 bilhões de valor bruto de produção.
 
@@ -27,29 +27,22 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 - Preço do quilo vendido: R$/kg (real por quilograma).
 - Valor em dinheiro de um hectare: R$/ha (real por hectare).
 
-## Por que usar Programação Inteira?
+### Limites
 
-Como a variável de decisão é inteira, o problema é de Programação Inteira porque a decisão de alocação se dá em módulos indivisíveis, no caso, as áreas de plantio. E como, precisamos verificar a "combinação ótima", usa-se Branch & Bound.
+#### Área cultivável e capacidade de armazenamento por município
 
-## Dados
-
-### Fontes
-
-- **CONAB: Agricultura e Segurança Alimentar** (Kaggle): https://www.kaggle.com/datasets/brenocodes/conab-agricultura-securanca-alimentar
-- **IBGE: Produção Agrícola Municipal (PAM)**, SIDRA, Tabela 5457: https://sidra.ibge.gov.br/tabela/5457
-
-### Dados selecionados
-
-| Arquivo | Uso no modelo | Colunas utilizadas |
+| Município | Área de lavoura PAM 2025 (ha) | Capacidade estática (t) |
 |---|---|---|
-| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `uf`, `produto`, `empreendimento`, `safra`, `mes`, `unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha`, `vlr_renda_fator_h` |
-| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `mes`, `dsc_nivel_comercializacao`, `valor_produto_kg` |
-| `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `nom_municipio`, `uf`, `qtd_capacidade_estatica(t)`, `identificacao_armazem` |
-| `levantamento_graos.csv` | Área plantada estadual (grãos) | `ano_agricola`, `uf`, `produto`, `safra`, `area_plantada_mil_ha` |
-| `levantamento_cafe.csv` | Área plantada estadual (café) | `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
-| `ppa_propostas_formalizadas_executadas.csv` | Orçamento do PAA no PR | `ano`, `uf`, `cod_ibge`, `valor_formalizado`, `valor_executado` |
-| `oferta_demanda.csv` | Teto de mercado nacional | `produto`, `dsc_safra`, `producao_1000t`, `importacao_1000t`, `consumo_1000t`, `exportacao_1000t` |
-| PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Município`, área plantada ou destinada à colheita (Total, ha) |
+| Cascavel | 249.637 | 1.236.110 |
+| Londrina | 139.946 | 378.730 |
+| Guarapuava | 136.230 | 1.538.570 |
+| Prudentópolis | 92.743 | 83.000 |
+| Ponta Grossa | 92.263 | 2.541.830 |
+| Dois Vizinhos | 41.713 | 172.820 |
+| Francisco Beltrão | 35.697 | 134.030 |
+| Capanema | 31.063 | 62.480 |
+| Umuarama | 18.732 | 110.290 |
+| Contenda | 15.843 | 38.520 |
 
 #### Combinações de município e cultura
 
@@ -68,27 +61,27 @@ Como a variável de decisão é inteira, o problema é de Programação Inteira 
 | Umuarama | mandioca | familiar |
 | Guarapuava | pinhão | sociobiodiversidade |
 
-#### Limites por município
+#### Descrição das Restrições
 
-| Município | Área de lavoura PAM 2025 (ha) | Capacidade estática (t) |
-|---|---|---|
-| Cascavel | 249.637 | 1.236.110 |
-| Londrina | 139.946 | 378.730 |
-| Guarapuava | 136.230 | 1.538.570 |
-| Prudentópolis | 92.743 | 83.000 |
-| Ponta Grossa | 92.263 | 2.541.830 |
-| Dois Vizinhos | 41.713 | 172.820 |
-| Francisco Beltrão | 35.697 | 134.030 |
-| Capanema | 31.063 | 62.480 |
-| Umuarama | 18.732 | 110.290 |
-| Contenda | 15.843 | 38.520 |
+1. **Área de lavoura por município.** A soma das áreas de todas as culturas e safras não pode passar da área da produção agrícola municipal, que usa a mesma regra de contagem da dupla safra:
+   Σ_{k ∈ K(m)} t · x_k ≤ A_m, para todo m ∈ M
 
-### Observações sobre os dados
+2. **Armazenagem por município.** A produção das culturas armazenáveis não pode passar da capacidade estática (a divisão por 1.000 converte kg em t):
+   Σ_{k ∈ K(m) ∩ S} q_k · t · x_k / 1000 ≤ W_m, para todo m ∈ M
 
-- Na base de café, a coluna `area_plantada_mil_ha` vem em hectares, apesar do nome.
-- O trigo do PR não aparece no `levantamento_graos.csv`, então não há limite de área estadual para ele.
-- O pinhão e o feijão preto têm um único registro de custo cada, e o último custo do triticale é de 2023.
-- Os dados da PAM 2025 são resultados preliminares do IBGE.
+3. **Área plantada estadual por cultura:**
+   Σ_{k ∈ K(c)} t · x_k ≤ E_c, para todo c ∈ E
+
+4. **Orçamento do PAA.** O valor da produção familiar comprada pelo estado não pode passar do orçamento:
+   Σ_{k ∈ F} p_k · q_k · t · x_k ≤ B
+
+5. **Teto de mercado nacional:**
+   Σ_{k ∈ K(c)} q_k · t · x_k ≤ N_c, para todo c ∈ N
+
+6. **Domínio:**
+   x_k ∈ ℤ₊, para todo k ∈ K
+
+   Maximização da rentabilidade agrícola do Paraná através da distribuição de culturas agrícolas por município.
 
 ## Modelagem formal
 
@@ -116,24 +109,33 @@ Maximizar a margem total do estado, em R$:
 
 max Z = Σ_{k ∈ K} m_k · t · x_k (área de cada combinação x lucro por hectare, somada a todas as combinações)
 
-### Restrições
+## Dados
 
-1. **Área de lavoura por município.** A soma das áreas de todas as culturas e safras não pode passar da área da produção agrícola municipal, que usa a mesma regra de contagem da dupla safra:
-   Σ_{k ∈ K(m)} t · x_k ≤ A_m, para todo m ∈ M
+### Fontes
 
-2. **Armazenagem por município.** A produção das culturas armazenáveis não pode passar da capacidade estática (a divisão por 1.000 converte kg em t):
-   Σ_{k ∈ K(m) ∩ S} q_k · t · x_k / 1000 ≤ W_m, para todo m ∈ M
+- **CONAB: Agricultura e Segurança Alimentar** (Kaggle): https://www.kaggle.com/datasets/brenocodes/conab-agricultura-securanca-alimentar
+- **IBGE: Produção Agrícola Municipal (PAM)**, SIDRA, Tabela 5457: https://sidra.ibge.gov.br/tabela/5457
 
-3. **Área plantada estadual por cultura:**
-   Σ_{k ∈ K(c)} t · x_k ≤ E_c, para todo c ∈ E
+### Conjunto de informações utilizado
 
-4. **Orçamento do PAA.** O valor da produção familiar comprada pelo estado não pode passar do orçamento:
-   Σ_{k ∈ F} p_k · q_k · t · x_k ≤ B
+| Arquivo | Uso no modelo | Colunas utilizadas |
+|---|---|---|
+| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `uf`, `produto`, `empreendimento`, `safra`, `mes`, `unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha`, `vlr_renda_fator_h` |
+| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `mes`, `dsc_nivel_comercializacao`, `valor_produto_kg` |
+| `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `nom_municipio`, `uf`, `qtd_capacidade_estatica(t)`, `identificacao_armazem` |
+| `levantamento_graos.csv` | Área plantada estadual (grãos) | `ano_agricola`, `uf`, `produto`, `safra`, `area_plantada_mil_ha` |
+| `levantamento_cafe.csv` | Área plantada estadual (café) | `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
+| `ppa_propostas_formalizadas_executadas.csv` | Orçamento do PAA no PR | `ano`, `uf`, `cod_ibge`, `valor_formalizado`, `valor_executado` |
+| `oferta_demanda.csv` | Teto de mercado nacional | `produto`, `dsc_safra`, `producao_1000t`, `importacao_1000t`, `consumo_1000t`, `exportacao_1000t` |
+| PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Município`, área plantada ou destinada à colheita (Total, ha) |
 
-5. **Teto de mercado nacional:**
-   Σ_{k ∈ K(c)} q_k · t · x_k ≤ N_c, para todo c ∈ N
+### Observações sobre os dados
 
-6. **Domínio:**
-   x_k ∈ ℤ₊, para todo k ∈ K
+- Na base de café, a coluna `area_plantada_mil_ha` vem em hectares, apesar do nome.
+- O trigo do PR não aparece no `levantamento_graos.csv`, então não há limite de área estadual para ele.
+- O pinhão e o feijão preto têm um único registro de custo cada, e o último custo do triticale é de 2023.
+- Os dados da PAM 2025 são resultados preliminares do IBGE.
 
-   Maximização da rentabilidade agrícola do Paraná através da distribuição de culturas agrícolas por município.
+## Por que usar Programação Inteira?
+
+Como a variável de decisão é inteira, o problema é de Programação Inteira porque a decisão de alocação se dá em módulos indivisíveis, no caso, as áreas de plantio. E como, precisamos verificar a "combinação ótima", usa-se Branch & Bound.
