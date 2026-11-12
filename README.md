@@ -61,27 +61,6 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 | Umuarama | mandioca | familiar |
 | Guarapuava | pinhão | sociobiodiversidade |
 
-#### Descrição das Restrições
-
-1. **Área de lavoura por município.** A soma das áreas de todas as culturas e safras não pode passar da área da produção agrícola municipal, que usa a mesma regra de contagem da dupla safra:
-   Σ_{k ∈ K(m)} t · x_k ≤ A_m, para todo m ∈ M
-
-2. **Armazenagem por município.** A produção das culturas armazenáveis não pode passar da capacidade estática (a divisão por 1.000 converte kg em t):
-   Σ_{k ∈ K(m) ∩ S} q_k · t · x_k / 1000 ≤ W_m, para todo m ∈ M
-
-3. **Área plantada estadual por cultura:**
-   Σ_{k ∈ K(c)} t · x_k ≤ E_c, para todo c ∈ E
-
-4. **Orçamento do PAA.** O valor da produção familiar comprada pelo estado não pode passar do orçamento:
-   Σ_{k ∈ F} p_k · q_k · t · x_k ≤ B
-
-5. **Teto de mercado nacional:**
-   Σ_{k ∈ K(c)} q_k · t · x_k ≤ N_c, para todo c ∈ N
-
-6. **Domínio:**
-   x_k ∈ ℤ₊, para todo k ∈ K
-
-   Maximização da rentabilidade agrícola do Paraná através da distribuição de culturas agrícolas por município.
 
 ## Modelagem formal
 
@@ -108,6 +87,26 @@ x_k ∈ ℤ₊: número de módulos de área destinados à combinação k.
 Maximizar a margem total do estado, em R$:
 
 max Z = Σ_{k ∈ K} m_k · t · x_k (área de cada combinação x lucro por hectare, somada a todas as combinações)
+
+### Restrições
+
+1. **Área de lavoura por município.** A soma das áreas de todas as culturas e safras não pode passar da área da produção agrícola municipal, que usa a mesma regra de contagem da dupla safra:
+   Σ_{k ∈ K(m)} t · x_k ≤ A_m, para todo m ∈ M
+
+2. **Armazenagem por município.** A produção das culturas armazenáveis não pode passar da capacidade estática (a divisão por 1.000 converte kg em t):
+   Σ_{k ∈ K(m) ∩ S} q_k · t · x_k / 1000 ≤ W_m, para todo m ∈ M
+
+3. **Área plantada estadual por cultura:**
+   Σ_{k ∈ K(c)} t · x_k ≤ E_c, para todo c ∈ E
+
+4. **Orçamento do PAA.** O valor da produção familiar comprada pelo estado não pode passar do orçamento:
+   Σ_{k ∈ F} p_k · q_k · t · x_k ≤ B
+
+5. **Teto de mercado nacional:**
+   Σ_{k ∈ K(c)} q_k · t · x_k ≤ N_c, para todo c ∈ N
+
+6. **Domínio:**
+   x_k ∈ ℤ₊, para todo k ∈ K
 
 ## Dados
 
