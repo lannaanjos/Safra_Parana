@@ -66,29 +66,29 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 
 ### Índices, conjuntos e parâmetros
 
-| Símbolo | Significado |
+| Símbolo | Significado | Unidade
 |---|---|
-| m | Um único município |
-| M | Municípios do estudo (10) |
-| c | Uma única cultura |
-| C | Culturas |
-| k | Uma combinação de município e cultura |
-| K | As 18 combinações de município e cultura |
-| K(m) | Combinações do município m |
-| K(c) | Combinações da cultura c |
-| Kfam | Combinações da agricultura familiar |
-| Karm | Combinações armazenáveis (grãos e café) |
-| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café) |
-| Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) |
-| Tam | Tamanho de um módulo |
-| Lucro(k) | Lucro por hectare da combinação k |
-| Prod(k) | Produtividade da produção k |
-| Preço(k) | Valor recebido pelo produtor da combinação k |
-| Área(m) | Área de lavoura de um município |
-| ArmE(m) | Capacidade estática de armazenamento de um município |
-| ÁreaEst(c) | Limite de área de lavoura para a cultura c |
-| TetoNac(c) | Teto nacional da cultura c, para c em Cn |
-| OrçPAA | Orçamento da PAA no Paraná |
+| m | Um único município | ? |
+| M | Municípios do estudo (10) | ? |
+| c | Uma única cultura | 
+| C | Culturas | ? |
+| k | Uma combinação de município e cultura | ? |
+| K | As 18 combinações de município e cultura | ? |
+| K(m) | Combinações do município m | ? |
+| K(c) | Combinações da cultura c | ? |
+| Kfam | Combinações da agricultura familiar | ? |
+| Karm | Combinações armazenáveis (grãos e café) | ? |
+| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café) | ? |
+| Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) | ? |
+| Tam | Tamanho de um módulo | ? |
+| Lucro(k) | Lucro por hectare da combinação k | ? |
+| Prod(k) | Produtividade da produção k | ? |
+| Preço(k) | Valor recebido pelo produtor da combinação k | ? |
+| Área(m) | Área de lavoura de um município m | ? |
+| ArmE(m) | Capacidade estática de armazenamento de um município m | ? |
+| ÁreaEst(c) | Limite de área de lavoura para a cultura c, para c em Ce| ? |
+| TetoNac(c) | Teto nacional da cultura c, para c em Cn | ? |
+| OrçPAA | Orçamento do PAA no Paraná | ? |
 
 ### Variável de decisão
 
@@ -105,16 +105,15 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 ### Restrições
 
 1. **Área de lavoura por município.** Em cada município, a área somada de suas combinações não pode ser maior que sua área correspondente para lavoura:
-   Σ Lucro(k) · Tam · Mód(k), para todo k em K
-
+   Σ Tam · Mód(k), para todo k em K(m) ≤ Área(m), para cada m em M
 
 2. **Armazenagem por município.** A produção das culturas armazenáveis não pode passar da capacidade estática (a divisão por 1.000 converte kg em t):
    Σ Prod(k) · Tam · Mód(k) / 1000, para todo k em K(m) e em Karm ≤ ArmE(m), para cada m em M
 
-3. **Área plantada estadual por cultura:** Para uma das culturas com limite estadual, a soma da área de seu plantio em todos os municípios não pode ser maior que o limite do seu plantio no Paraná.
+3. **Área plantada estadual por cultura:** Para cada uma das culturas com limite estadual, a soma da área de seu plantio em todos os municípios não pode ser maior que o limite do seu plantio no Paraná.
    Σ Tam · Mód(k), para todo k em K(c) ≤ ÁreaEst(c), para cada c em Ce
 
-4. **Orçamento do PAA.** O valor da produção familiar não pode ser maior que o orçamento da PAA:
+4. **Orçamento do PAA.** O valor da produção familiar não pode ser maior que o orçamento do PAA:
    Σ Preço(k) · Prod(k) · Tam · Mód(k), para todo k em Kfam ≤ OrçPAA
 
 5. **Teto de mercado nacional:** Para cada cultura com teto nacional, a colheita total não pode passar do limite nacional:
