@@ -78,7 +78,7 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 | K(c) | Combinações da cultura c | - |
 | Kfam | Combinações da agricultura familiar | - |
 | Karm | Combinações armazenáveis (grãos e café) | - |
-| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café) | - |
+| Ce | Culturas com limite de área estadual (soja, trigo, milho, feijão, triticale e café) | - |
 | Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) | - |
 | Tam | Tamanho de um módulo | ha (hectares) |
 | Lucro(k) | Lucro por hectare da combinação k | R$/ha |
@@ -133,9 +133,9 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 
 | Arquivo | Uso no modelo | Colunas utilizadas |
 |---|---|---|
-| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `uf`, `produto`, `empreendimento`, `safra`, `mes`, `ano`,`unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha`, `vlr_renda_fator_ha` |
-| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `mes`, `ano`,`dsc_nivel_comercializacao`, `valor_produto_kg` |
-| `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `nom_municipio`, `uf`, `qtd_capacidade_estatica(t)`, `identificacao_armazem` |
+| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `uf`, `cod_ibge`, `produto`, `empreendimento`, `safra`, `mes`, `ano`, `unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha` |
+| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `mes`, `ano`, `dsc_nivel_comercializacao`, `valor_produto_kg` |
+| `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `nom_municipio`, `uf`, `cod_ibge`, `qtd_capacidade_estatica(t)`, `identificacao_armazem` |
 | `levantamento_graos.csv` | Área plantada estadual (grãos) | `id_levantamento`, `ano_agricola`, `uf`, `produto`, `safra`, `area_plantada_mil_ha` |
 | `levantamento_cafe.csv` | Área plantada estadual (café) | `id_levantamento`, `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
 | `ppa_propostas_formalizadas_executadas.csv` | Orçamento do PAA no PR | `ano`, `uf`, `cod_ibge`, `valor_formalizado`, `valor_executado` |
@@ -144,6 +144,7 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 
 ### Observações sobre os dados
 
+- `cod_ibge` é usado porque o nome dos municípios não batem entre arquivos.
 - Na base de café, a coluna `area_plantada_mil_ha` vem em hectares, apesar do nome.
 - O pinhão e o feijão preto têm um único registro de custo cada, e o último custo do triticale é de 2023.
 - Os dados da PAM 2025 são resultados preliminares do IBGE.
