@@ -133,11 +133,11 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 
 | Arquivo | Uso no modelo | Colunas utilizadas |
 |---|---|---|
-| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `uf`, `produto`, `empreendimento`, `safra`, `mes`, `unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha`, `vlr_renda_fator_h` |
-| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `mes`, `dsc_nivel_comercializacao`, `valor_produto_kg` |
+| `custo_producao.csv` | Custos e produtividade de cada combinação | `municipio`, `uf`, `produto`, `empreendimento`, `safra`, `mes`, `ano`,`unidade_comercializacao`, `vlr_custo_variavel_ha`, `vlr_custo_variavel_unidade`, `vlr_custo_fixo_ha`, `vlr_renda_fator_ha` |
+| `preco_mensal_uf.csv` | Preço recebido pelo produtor no PR | `produto`, `classificao_produto`, `uf`, `mes`, `ano`,`dsc_nivel_comercializacao`, `valor_produto_kg` |
 | `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `nom_municipio`, `uf`, `qtd_capacidade_estatica(t)`, `identificacao_armazem` |
-| `levantamento_graos.csv` | Área plantada estadual (grãos) | `ano_agricola`, `uf`, `produto`, `safra`, `area_plantada_mil_ha` |
-| `levantamento_cafe.csv` | Área plantada estadual (café) | `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
+| `levantamento_graos.csv` | Área plantada estadual (grãos) | `id_levantamento`, `ano_agricola`, `uf`, `produto`, `safra`, `area_plantada_mil_ha` |
+| `levantamento_cafe.csv` | Área plantada estadual (café) | `id_levantamento`, `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
 | `ppa_propostas_formalizadas_executadas.csv` | Orçamento do PAA no PR | `ano`, `uf`, `cod_ibge`, `valor_formalizado`, `valor_executado` |
 | `oferta_demanda.csv` | Teto de mercado nacional | `produto`, `dsc_safra`, `producao_1000t`, `importacao_1000t`, `consumo_1000t`, `exportacao_1000t` |
 | PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Município`, área plantada ou destinada à colheita (Total, ha) |
@@ -145,7 +145,6 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 ### Observações sobre os dados
 
 - Na base de café, a coluna `area_plantada_mil_ha` vem em hectares, apesar do nome.
-- O trigo do PR não aparece no `levantamento_graos.csv`, então não há limite de área estadual para ele.
 - O pinhão e o feijão preto têm um único registro de custo cada, e o último custo do triticale é de 2023.
 - Os dados da PAM 2025 são resultados preliminares do IBGE.
 
