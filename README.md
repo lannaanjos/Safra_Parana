@@ -64,7 +64,7 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 
 ## Modelagem formal
 
-### Índices e Conjuntos
+### Índices, conjuntos e parâmetros
 
 | Símbolo | Significado |
 |---|---|
@@ -80,36 +80,48 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 | Karm | Combinações armazenáveis (grãos e café) |
 | Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café) |
 | Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) |
+| Tam | Tamanho de um módulo |
+| Lucro(k) | Lucro por hectare da combinação k |
+| Prod(k) | Produtividade da produção k |
+| Preço(k) | Valor recebido pelo produtor da combinação k |
+| Área(m) | Área de lavoura de um município |
+| ArmE(m) | Capacidade estática de armazenamento de um município |
+| ÁreaEst(c) | Limite de área de lavoura para a cultura c |
+| TetoNac(c) | Teto nacional da cultura c, para c em Cn |
+| OrçPAA | Orçamento da PAA no Paraná |
 
 ### Variável de decisão
 
-x_k ∈ ℤ₊: número de módulos de área destinados à combinação k.
+Mód(k): número de módulos de área destinados à combinação k.
 
 ### Função objetivo
 
 Maximizar a margem total do estado, em R$:
 
-max Z = Σ_{k ∈ K} m_k · t · x_k (área de cada combinação x lucro por hectare, somada a todas as combinações)
+max Z = Σ Lucro(k) · Tam · Mód(k), para todo k em K
+
+O modelo busca o maior total somando todas as combinações, sendo que, para cada combinação, multiplica-se o lucro de um hectare pela área plantada.
 
 ### Restrições
 
-1. **Área de lavoura por município.** A soma das áreas de todas as culturas e safras não pode passar da área da produção agrícola municipal, que usa a mesma regra de contagem da dupla safra:
-   Σ_{k ∈ K(m)} t · x_k ≤ A_m, para todo m ∈ M
+1. **Área de lavoura por município.** Em cada município, a área somada de suas combinações não pode ser maior que sua área correspondente para lavoura:
+   Σ Lucro(k) · Tam · Mód(k), para todo k em K
+
 
 2. **Armazenagem por município.** A produção das culturas armazenáveis não pode passar da capacidade estática (a divisão por 1.000 converte kg em t):
-   Σ_{k ∈ K(m) ∩ S} q_k · t · x_k / 1000 ≤ W_m, para todo m ∈ M
+   Σ Prod(k) · Tam · Mód(k) / 1000, para todo k em K(m) e em Karm ≤ ArmE(m), para cada m em M
 
-3. **Área plantada estadual por cultura:**
-   Σ_{k ∈ K(c)} t · x_k ≤ E_c, para todo c ∈ E
+3. **Área plantada estadual por cultura:** Para uma das culturas com limite estadual, a soma da área de seu plantio em todos os municípios não pode ser maior que o limite do seu plantio no Paraná.
+   Σ Tam · Mód(k), para todo k em K(c) ≤ ÁreaEst(c), para cada c em Ce
 
-4. **Orçamento do PAA.** O valor da produção familiar comprada pelo estado não pode passar do orçamento:
-   Σ_{k ∈ F} p_k · q_k · t · x_k ≤ B
+4. **Orçamento do PAA.** O valor da produção familiar não pode ser maior que o orçamento da PAA:
+   Σ Preço(k) · Prod(k) · Tam · Mód(k), para todo k em Kfam ≤ OrçPAA
 
-5. **Teto de mercado nacional:**
-   Σ_{k ∈ K(c)} q_k · t · x_k ≤ N_c, para todo c ∈ N
+5. **Teto de mercado nacional:** Para cada cultura com teto nacional, a colheita total não pode passar do limite nacional:
+   Σ Prod(k) · Tam · Mód(k), para todo k em K(c) ≤ TetoNac(c), para cada c em Cn
 
-6. **Domínio:**
-   x_k ∈ ℤ₊, para todo k ∈ K
+6. **Domínio:** Cada combinação de município x cultura recebe um número inteiro de módulos:
+   Mód(k) inteiro e maior ou igual a zero, para todo k em K
 
 ## Dados
 
