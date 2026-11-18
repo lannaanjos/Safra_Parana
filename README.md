@@ -67,7 +67,7 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 ### Índices, conjuntos e parâmetros
 
 | Símbolo | Significado | Unidade |
-|---|---|
+|---|---| --- |
 | m | Um único município | - |
 | M | Municípios do estudo (10) | - |
 | c | Uma única cultura | - |
