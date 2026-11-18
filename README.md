@@ -140,11 +140,11 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 | `levantamento_cafe.csv` | Área plantada estadual (café) | `id_levantamento`, `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
 | `ppa_propostas_formalizadas_executadas.csv` | Orçamento do PAA no PR | `ano`, `uf`, `cod_ibge`, `valor_formalizado`, `valor_executado` |
 | `oferta_demanda.csv` | Teto de mercado nacional | `produto`, `dsc_safra`, `producao_1000t`, `importacao_1000t`, `consumo_1000t`, `exportacao_1000t` |
-| PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Município`, área plantada ou destinada à colheita (Total, ha) |
+| PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Cód.`, `Município`, área plantada ou destinada à colheita (Total, ha) |
 
 ### Observações sobre os dados
 
-- `cod_ibge` é usado porque o nome dos municípios não batem entre arquivos.
+- `cod_ibge` é usado porque os nomes dos municípios não batem entre arquivos.
 - Na base de café, a coluna `area_plantada_mil_ha` vem em hectares, apesar do nome.
 - O pinhão e o feijão preto têm um único registro de custo cada, e o último custo do triticale é de 2023.
 - Os dados da PAM 2025 são resultados preliminares do IBGE.
