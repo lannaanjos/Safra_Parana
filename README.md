@@ -68,15 +68,18 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 
 | Símbolo | Significado |
 |---|---|
+| m | Um único município |
 | M | Municípios do estudo (10) |
+| c | Uma única cultura |
 | C | Culturas |
-| K | Combinações (m, c) de município e cultura disponíveis na base de custos (18) |
+| k | uma combinação de município e cultura |
+| K | As 18 combinações de município e cultura |
 | K(m) | Combinações do município m |
 | K(c) | Combinações da cultura c |
-| F | Combinações da agricultura familiar |
-| S | Combinações armazenáveis (grãos, feijão e café) |
-| E | Culturas com área plantada estadual disponível (soja, milho, feijão, triticale, café) |
-| N | Culturas com teto de mercado nacional (soja, milho, feijão, trigo) |
+| K(fam) | Combinações da agricultura familiar |
+| K(arm) | Combinações armazenáveis |
+| Ce | Culturas com limite de área estadual |
+| Cn | Culturas com teto de mercado nacional |
 
 ### Variável de decisão
 
