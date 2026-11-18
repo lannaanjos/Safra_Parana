@@ -66,29 +66,29 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 
 ### Índices, conjuntos e parâmetros
 
-| Símbolo | Significado | Unidade
+| Símbolo | Significado | Unidade |
 |---|---|
-| m | Um único município | ? |
-| M | Municípios do estudo (10) | ? |
-| c | Uma única cultura | 
-| C | Culturas | ? |
-| k | Uma combinação de município e cultura | ? |
-| K | As 18 combinações de município e cultura | ? |
-| K(m) | Combinações do município m | ? |
-| K(c) | Combinações da cultura c | ? |
-| Kfam | Combinações da agricultura familiar | ? |
-| Karm | Combinações armazenáveis (grãos e café) | ? |
-| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café) | ? |
-| Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) | ? |
-| Tam | Tamanho de um módulo | ? |
-| Lucro(k) | Lucro por hectare da combinação k | ? |
-| Prod(k) | Produtividade da produção k | ? |
-| Preço(k) | Valor recebido pelo produtor da combinação k | ? |
-| Área(m) | Área de lavoura de um município m | ? |
-| ArmE(m) | Capacidade estática de armazenamento de um município m | ? |
-| ÁreaEst(c) | Limite de área de lavoura para a cultura c, para c em Ce| ? |
-| TetoNac(c) | Teto nacional da cultura c, para c em Cn | ? |
-| OrçPAA | Orçamento do PAA no Paraná | ? |
+| m | Um único município | - |
+| M | Municípios do estudo (10) | - |
+| c | Uma única cultura | - |
+| C | Culturas | - |
+| k | Uma combinação de município e cultura | - |
+| K | As 18 combinações de município e cultura | - |
+| K(m) | Combinações do município m | - |
+| K(c) | Combinações da cultura c | - |
+| Kfam | Combinações da agricultura familiar | - |
+| Karm | Combinações armazenáveis (grãos e café) | - |
+| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café) | - |
+| Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) | - |
+| Tam | Tamanho de um módulo | ha (hectares) |
+| Lucro(k) | Lucro por hectare da combinação k | R$/ha |
+| Prod(k) | Produtividade da produção k | kg/ha |
+| Preço(k) | Valor recebido pelo produtor da combinação k | R$/kg |
+| Área(m) | Área de lavoura de um município m | ha |
+| ArmE(m) | Capacidade estática de armazenamento de um município m | t (toneladas) |
+| ÁreaEst(c) | Limite de área de lavoura para a cultura c, para c em Ce| ha |
+| TetoNac(c) | Teto nacional da cultura c, para c em Cn | kg |
+| OrçPAA | Orçamento do PAA no Paraná | R$ |
 
 ### Variável de decisão
 
