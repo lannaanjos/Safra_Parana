@@ -1,24 +1,24 @@
 # Safra Paraná
 
-O trabalho descreve a modelagem de dados da agricultura do Paraná, verificando a melhor combinação de culturas agrícolas em seus municípios com o objetivo de maximizar a rentabilidade agrícola total do estado.
+O trabalho descreve um modelo de otimização feito com base na análise de dados do dataset da CONAB da agricultura do Paraná, verificando a melhor combinação de culturas agrícolas em seus municípios com o objetivo de maximizar a rentabilidade agrícola total do estado.
 
 ## Justificativa do tema
 
 A distribuição adequada de culturas agrícolas foi o tema escolhido pois a economia do Paraná se beneficia do agronegócio, que representa cerca de 35% do PIB paranaense. O estado é o 2º maior produtor de grãos do país, destacando-se com o cultivo da soja, milho, trigo e feijão. Segundo o portal [Bem Paraná](https://www.bemparana.com.br/opiniao/parana-recorde-no-agro-traduz-a-forca-da-quarta-maior-economia-do-pais/), somente em 2025, a agricultura estadual rendeu R$ 91,2 bilhões de valor bruto de produção.
 
-Com base nisso, o grupo decidiu analisar a dispersão dos diferentes tipos de culturas pelo Paraná pelos municípios representativos, eleitos pela CONAB, visando avaliar a estrutura atual e propor uma alternativa que maximize a produção e rentabilidade agrícuola estadual.
+Com base nisso, o grupo decidiu analisar a dispersão dos diferentes tipos de culturas pelo Paraná pelos municípios representativos, eleitos pela CONAB, visando avaliar a estrutura atual e propor uma alternativa que maximize a margem de lucro.
 
 ## Descrição do problema
 
 A área cultivável de cada um dos 10 municípios foi dividida em módulos iguais de *x* hectares. O modelo decidirá quantos módulos de cada município serão destinados a cada cultura possível nele para maximizar a produção e rentabilidade total.
 
-Ao total, com a base de custos da CONAB, temos 18 combinações de município e cultura divididas entre três categorias de produtor: agricultura familiar, sociobiodiversidade e agricultura empresarial. Cada combinação é classificada conforme sua categoria e os resultados seão analisados conforme essa classificação.
+Ao total, com a base de custos da CONAB, temos 18 combinações de município e cultura divididas entre três categorias de produtor: agricultura familiar, sociobiodiversidade e agricultura empresarial. Cada combinação é classificada conforme sua categoria e os resultados serão analisados conforme essa classificação.
 
 Para cada cultura em cada município, calcula-se o lucro por hectare através da receita obtida em um hectare menos o custo variável e o custo fixo desse hectare.
 
 > Lucro por hectare = receita obtida no hectare - custos do hectare
 
-A produtividade é determinada pela quantidade de sacas que um hectar produz. Como a CONAB não informa o quantidade de sacas exatas, utilizamos o seguinte cálculo:
+A produtividade é determinada pela quantidade de sacas que um hectare produz. Como a CONAB não informa a quantidade de sacas exatas, utilizamos o seguinte cálculo:
 
 > Produtividade (sacas por hectare) = custo por hectare / custo por saca
 
