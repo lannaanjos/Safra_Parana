@@ -82,7 +82,7 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 | Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) | - |
 | Tam | Tamanho de um módulo | ha (hectares) |
 | Lucro(k) | Lucro por hectare da combinação k | R$/ha |
-| Prod(k) | Produtividade da produção k | kg/ha |
+| Prod(k) | Produtividade da combinação k | kg/ha |
 | Preço(k) | Valor recebido pelo produtor da combinação k | R$/kg |
 | Área(m) | Área de lavoura de um município m | ha |
 | ArmE(m) | Capacidade estática de armazenamento de um município m | t (toneladas) |
@@ -138,13 +138,12 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 | `armazens_cadastrados.csv` | Capacidade de armazenagem por município | `nom_municipio`, `uf`, `cod_ibge`, `qtd_capacidade_estatica(t)`, `identificacao_armazem` |
 | `levantamento_graos.csv` | Área plantada estadual (grãos) | `id_levantamento`, `ano_agricola`, `uf`, `produto`, `safra`, `area_plantada_mil_ha` |
 | `levantamento_cafe.csv` | Área plantada estadual (café) | `id_levantamento`, `ano_agricola`, `uf`, `produto`, `area_plantada_mil_ha` |
-| `ppa_propostas_formalizadas_executadas.csv` | Orçamento do PAA no PR | `ano`, `uf`, `cod_ibge`, `valor_formalizado`, `valor_executado` |
 | `oferta_demanda.csv` | Teto de mercado nacional | `produto`, `dsc_safra`, `producao_1000t`, `importacao_1000t`, `consumo_1000t`, `exportacao_1000t` |
 | PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Cód.`, `Município`, área plantada ou destinada à colheita (Total, ha) |
 
 Extra: 
-- [Classificação trigo](https://www.agrolink.com.br/noticias/apenas-23-2--das-amostras-de-trigo-atingem-ph-minimo_520121.html): Mandioca - cerca de 88% vai para a indústria e 12% para nossa mesa; Trigo - cerca de 72% é PH 78 tipo 1 e 25% é PH 75 tipo 2 (importa porque muda o preço).
-- [Teto PAA PR](https://www.canalrural.com.br/politica/conab-destina-r-62-milhoes-ao-paa-no-parana/): R$ 62 milhões
+- Classificação [trigo](https://www.agrolink.com.br/noticias/apenas-23-2--das-amostras-de-trigo-atingem-ph-minimo_520121.html) e [mandioca](https://revistacultivar.com.br/noticias/parana-lidera-producao-de-mandioca-industrial): Mandioca - cerca de 88% vai para a indústria e 12% para nossa mesa; Trigo - cerca de 72% é PH 78 tipo 1 e 25% é PH 75 tipo 2 (importa porque muda o preço).
+- [Teto PAA PR](https://www.canalrural.com.br/politica/conab-destina-r-62-milhoes-ao-paa-no-parana/): R$ 62 milhões. Usaremos esse dado considerando o PAA distribuído para todo o estado (aplicado aos 10 municípios selecionados) pois o dataset da CONAB carece de integridade dessa informação.
 
 ### Observações sobre os dados
 
