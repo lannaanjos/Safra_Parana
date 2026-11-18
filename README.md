@@ -154,4 +154,6 @@ Extra:
 
 ## Por que usar Programação Inteira?
 
-Como a variável de decisão é inteira, o problema é de Programação Inteira porque a decisão de alocação se dá em módulos indivisíveis, no caso, as áreas de plantio. E como, precisamos verificar a "combinação ótima", usa-se Branch & Bound.
+Como a variável de decisão é inteira (módulos de combinações), o problema é de Programação Inteira porque a decisão de alocação se dá em módulos indivisíveis, no caso, as áreas de plantio.
+
+Se usássemos o Simplex, por exemplo, poderíams ter a resolução da versão contínua do proble,a entretanto poderíamos ter resultados fracionários, o que não faz sentido para o escopo do problema, afinal uma combinação pode receber, por exemplo, 3 ou 4 módulos, nunca meio módulo ou 4/3 módulos. Além disso, arredondar esses valores fracionários pode acabar violando restrições ou deixando de ser a melhor solução possível.
