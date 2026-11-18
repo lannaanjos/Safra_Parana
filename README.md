@@ -77,9 +77,9 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 | K(m) | Combinações do município m |
 | K(c) | Combinações da cultura c |
 | Kfam | Combinações da agricultura familiar |
-| Karm | Combinações armazenáveis |
-| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café)|
-| Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo)|
+| Karm | Combinações armazenáveis (grãos e café) |
+| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café) |
+| Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo) |
 
 ### Variável de decisão
 
