@@ -142,6 +142,10 @@ O modelo busca o maior total somando todas as combinações, sendo que, para cad
 | `oferta_demanda.csv` | Teto de mercado nacional | `produto`, `dsc_safra`, `producao_1000t`, `importacao_1000t`, `consumo_1000t`, `exportacao_1000t` |
 | PAM/IBGE, Tabela 5457 | Área de lavoura por município (2025, preliminar) | `Cód.`, `Município`, área plantada ou destinada à colheita (Total, ha) |
 
+Extra: 
+- [Classificação trigo](https://www.agrolink.com.br/noticias/apenas-23-2--das-amostras-de-trigo-atingem-ph-minimo_520121.html): Mandioca - cerca de 88% vai para a indústria e 12% para nossa mesa; Trigo - cerca de 72% é PH 78 tipo 1 e 25% é PH 75 tipo 2 (importa porque muda o preço).
+- [Teto PAA PR](https://www.canalrural.com.br/politica/conab-destina-r-62-milhoes-ao-paa-no-parana/): R$ 62 milhões
+
 ### Observações sobre os dados
 
 - `cod_ibge` é usado porque os nomes dos municípios não batem entre arquivos.
