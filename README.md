@@ -64,7 +64,7 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 
 ## Modelagem formal
 
-### Conjuntos
+### Índices e Conjuntos
 
 | Símbolo | Significado |
 |---|---|
@@ -72,14 +72,14 @@ Como as unidades variam no dataset original, os valores serão normalizados da s
 | M | Municípios do estudo (10) |
 | c | Uma única cultura |
 | C | Culturas |
-| k | uma combinação de município e cultura |
+| k | Uma combinação de município e cultura |
 | K | As 18 combinações de município e cultura |
 | K(m) | Combinações do município m |
 | K(c) | Combinações da cultura c |
-| K(fam) | Combinações da agricultura familiar |
-| K(arm) | Combinações armazenáveis |
-| Ce | Culturas com limite de área estadual |
-| Cn | Culturas com teto de mercado nacional |
+| Kfam | Combinações da agricultura familiar |
+| Karm | Combinações armazenáveis |
+| Ce | Culturas com limite de área estadual (soja, milho, feijão, triticale e café)|
+| Cn | Culturas com teto de mercado nacional (soja, milho, feijão e trigo)|
 
 ### Variável de decisão
 
