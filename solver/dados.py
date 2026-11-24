@@ -1,13 +1,15 @@
 import pandas as pd
 import os
+from pathlib import Path
 
-pasta = "./dados"
+pasta_dados = Path(__file__).parent.parent / "Dados"
+pasta_conab = pasta_dados / "Dataset_CONAB"
 
-custos = pd.read_csv("./dados/custo_producao.csv")
-precos = pd.read_csv("./dados/preco_mensal_uf.csv")
-armazens = pd.read_csv("./dados/armazens_cadastrados.csv")
-cafe = pd.read_csv("./dados/armazens_cadastrados.csv")
-graos = pd.read_csv("./dados/armazens_cadastrados.csv")
+custos = pd.read_csv(pasta_conab/"custo_producao.csv")
+precos = pd.read_csv(pasta_conab/"preco_mensal_uf.csv")
+armazens = pd.read_csv(pasta_conab/"armazens_cadastrados.csv")
+cafe = pd.read_csv(pasta_conab/"levantamento_cafe.csv")
+graos = pd.read_csv(pasta_conab/"levantamento_graos.csv")
 
 combinacoes_validas = [
     ("Ponta Grossa", "soja"),
@@ -31,9 +33,9 @@ combinacoes_validas = [
 ]
 
 def extrair_dados():
-    for arquivo in os.listdir(pasta):
+    for arquivo in os.listdir(pasta_dados):
         if arquivo.endswith(".csv"):
-            caminho = os.path.join(pasta, arquivo)
+            caminho = os.path.join(pasta_dados, arquivo)
 
             df = pd.read_csv(caminho)
 
@@ -41,6 +43,11 @@ def extrair_dados():
             print(df.columns.tolist())
             print(df.head())
 
-    
+def main():
 
+    extrair_dados()
+
+    
+if "__name__" == "__main__":
+    main()
 
