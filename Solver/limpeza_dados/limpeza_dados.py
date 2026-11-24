@@ -1,5 +1,5 @@
+from pathlib import Path
 import pandas as pd
-from Solver.config import PASTA_CONAB
 
 
 def remover_espacos(df: pd.DataFrame) -> pd.DataFrame:
@@ -11,6 +11,7 @@ def remover_espacos(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def carregar_conab(nome_arquivo: str) -> pd.DataFrame:
-    df = pd.read_csv(PASTA_CONAB / nome_arquivo)
+def carregar_csv(caminho: Path, **kwargs) -> pd.DataFrame:
+    # lê qualquer CSV e já devolve com os textos padronizados
+    df = pd.read_csv(caminho, **kwargs)
     return remover_espacos(df)
