@@ -37,6 +37,7 @@ SOCIOBIO = "SOCIOBIODIVERSIDADE"
 # CONSTANTES
 N_MODULOS = 1000   # só para saber que precisa estar aqui, o valor correto ainda n foi calculado
 ORC_PAA = 62_000_000 
+ANO_INICIO_CUSTOS = 2023
 
 # 18 COMBINAÇÕES POSSÍVEIS
 COMBINACOES = [
@@ -59,3 +60,6 @@ COMBINACOES = [
     (4128104, "RAIZ DE MANDIOCA", "TODAS", FAMILIAR),
     (4109401, "PINHAO", "TODAS", SOCIOBIO),
 ]
+
+# UNIDADES DE MEDIDA
+KG_POR_UNIDADE = {"60 kg": 60, "25 kg": 25, "kg": 1, "t": 1000}
