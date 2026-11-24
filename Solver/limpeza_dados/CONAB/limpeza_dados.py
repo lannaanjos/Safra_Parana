@@ -43,11 +43,3 @@ def extrair_dados():
             print(df.columns.tolist())
             print(df.head())
 
-def main():
-
-    extrair_dados()
-
-    
-if "__name__" == "__main__":
-    main()
-
