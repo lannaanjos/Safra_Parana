@@ -1,0 +1,6 @@
+import pulp
+import dados
+
+
+
+
