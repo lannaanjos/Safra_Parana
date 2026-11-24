@@ -6,7 +6,7 @@ def remover_espacos(df: pd.DataFrame) -> pd.DataFrame:
     # tira espaços nas bordas dos nomes
     df = df.copy()
     df.columns = df.columns.str.strip()
-    colunas_texto = df.select_dtypes(include="object").columns
+    colunas_texto = df.select_dtypes(include=["object", "string"]).columns
     df[colunas_texto] = df[colunas_texto].apply(lambda col: col.str.strip())
     return df
 
