@@ -1,8 +1,12 @@
 from pathlib import Path
 import pandas as pd
 
-PASTA_DADOS = Path(file).parent.parent / "Dados"
+# CAMINHOS DOS ARQUIVOS
+RAIZ = Path(__file__).resolve().parent.parent
+
+PASTA_DADOS = RAIZ / "Dados"
 PASTA_CONAB = PASTA_DADOS / "Dataset_CONAB"
+PASTA_IBGE = PASTA_DADOS / "IBGE"
 
 CSV_CUSTOS = PASTA_CONAB/"custo_producao.csv"
 CSV_PRECOS = PASTA_CONAB/"preco_mensal_uf.csv"
@@ -10,13 +14,47 @@ CSV_ARMAZENS = PASTA_CONAB/"armazens_cadastrados.csv"
 CSV_CAFE = PASTA_CONAB/"levantamento_cafe.csv"
 CSV_GRAOS = PASTA_CONAB/"levantamento_graos.csv"
 
-N_MODULOS = 1000          
-ORC_PAA = 62_000_000 
+# CÓDIGO DO IBGE POR MUNICÍPIO
 
 MUNICIPIOS = {
-    4104501: "Capanema", 4104808: "Cascavel", 4106209: "Contenda",
-    4107207: "Dois Vizinhos", 4108403: "Francisco Beltrão",
-    4109401: "Guarapuava", 4113700: "Londrina", 4119905: "Ponta Grossa",
-    4120606: "Prudentópolis", 4128104: "Umuarama",
+    4104501: "Capanema",
+    4104808: "Cascavel",
+    4106209: "Contenda",
+    4107207: "Dois Vizinhos",
+    4108403: "Francisco Beltrão",
+    4109401: "Guarapuava", 4113700:"Londrina",
+     4119905: "Ponta Grossa",
+    4120606: "Prudentópolis",
+    4128104: "Umuarama",
 }
 
+# TIPOS
+EMPRESARIAL = "AGRICULTURA EMPRESARIAL"
+FAMILIAR = "AGRICULTURA FAMILIAR"
+SOCIOBIO = "SOCIOBIODIVERSIDADE"
+
+# CONSTANTES
+N_MODULOS = 1000   # só para saber que precisa estar aqui, o valor correto ainda n foi calculado
+ORC_PAA = 62_000_000 
+
+# 18 COMBINAÇÕES POSSÍVEIS
+COMBINACOES = [
+    (4119905, "SOJA", "TODAS", EMPRESARIAL),
+    (4119905, "MILHO", "1ª SAFRA", EMPRESARIAL),
+    (4119905, "FEIJAO COMUM CORES", "TODAS", EMPRESARIAL),
+    (4119905, "TRIGO", "TODAS", EMPRESARIAL),
+    (4119905, "TRITICALE", "TODAS", EMPRESARIAL),
+    (4113700, "SOJA", "TODAS", EMPRESARIAL),
+    (4113700, "MILHO", "2ª SAFRA", EMPRESARIAL),
+    (4113700, "TRIGO", "TODAS", EMPRESARIAL),
+    (4113700, "CAFE", "TODAS", FAMILIAR),
+    (4104808, "TRIGO", "TODAS", EMPRESARIAL),
+    (4104808, "MILHO", "2ª SAFRA", FAMILIAR),
+    (4104501, "TRIGO", "TODAS", FAMILIAR),
+    (4107207, "TRIGO", "TODAS", FAMILIAR),
+    (4108403, "FEIJAO COMUM CORES", "TODAS", FAMILIAR),
+    (4120606, "FEIJAO COMUM PRETO", "TODAS", FAMILIAR),
+    (4106209, "BATATA", "TODAS", FAMILIAR),
+    (4128104, "RAIZ DE MANDIOCA", "TODAS", FAMILIAR),
+    (4109401, "PINHAO", SOCIOBIO, SOCIOBIO),
+]
