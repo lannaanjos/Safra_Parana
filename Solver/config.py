@@ -22,8 +22,9 @@ MUNICIPIOS = {
     4106209: "Contenda",
     4107207: "Dois Vizinhos",
     4108403: "Francisco Beltrão",
-    4109401: "Guarapuava", 4113700:"Londrina",
-     4119905: "Ponta Grossa",
+    4109401: "Guarapuava",
+    4113700:"Londrina",
+    4119905: "Ponta Grossa",
     4120606: "Prudentópolis",
     4128104: "Umuarama",
 }
