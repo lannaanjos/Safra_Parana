@@ -1,4 +1,4 @@
-import pulp
+import pandas as pd
 # import dados
 
 '''
@@ -28,8 +28,14 @@ from Solver.limpeza_dados import (
     limpar_oferta_demanda,
     limpar_precos,
 )
+from Solver.modelo import resolver
 from Solver.parametros import montar_parametros
-from config import ORC_PAA
+from Solver.config import ORC_PAA
+
+# FORMATAÇÃO (padrão brasileiro: 1.234.567,89)
+def brl(valor: float, casas: int = 0) -> str:
+    return f"{valor:,.{casas}f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
 
 # LIMPEZA
 def limpar_dados() -> dict:
@@ -74,7 +80,33 @@ def main() -> None:
     TetoNa = dados["teto_nacional"]
     OrcPAA = ORC_PAA 
 
-# MODELO (falta fazer): PuLP
+    # MODELO
+    res = resolver(par, dados, OrcPAA)
+
+    print(f"\nstatus: {res['status']}")
+    print(f"lucro total (Z): R$ {brl(res['Z'], 2)}  (R$ {brl(res['Z'] / 1e9, 2)} bilhões)")
+
+    t = res["tabela"]
+    plantado = t[t["modulos"] > 0].copy()
+    plantado["area_ha"] = plantado["area_ha"].map(brl)
+    plantado["lucro_total"] = plantado["lucro_total"].map(lambda v: "R$ " + brl(v))
+    print("\nO que o modelo planta:")
+    print(plantado[["municipio", "produto", "safra", "empreendimento",
+                    "modulos", "area_ha", "lucro_total"]].to_string(index=False))
+
+    cat = t.groupby("empreendimento")[["area_ha", "lucro_total"]].sum()
+    cat["area_ha"] = cat["area_ha"].map(brl)
+    cat["lucro_total"] = cat["lucro_total"].map(lambda v: "R$ " + brl(v))
+    print("\nPor categoria de produtor:")
+    print(cat)
+
+    uso = res["restricoes"].copy()
+    uso["uso"] = uso["uso"].map(brl)
+    uso["limite"] = uso["limite"].map(brl)
+    uso["uso_pct"] = uso["uso_pct"].map(lambda v: brl(v, 1) + "%")
+    print("\nRestrições (uso / limite):")
+    print(uso.to_string(index=False))
+
 
 if __name__ == "__main__":
     main()

@@ -5,7 +5,7 @@ from Solver.config import MUNICIPIOS
 
 
 def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
-   def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
+   
     """Monta e resolve o modelo de programação inteira descrito no README.
 
     par: saída de montar_parametros(dados)
@@ -37,6 +37,14 @@ def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
                                       #   cultura c, chave (cultura, safra) (ha)
     TetoNac = dados["teto_nacional"]  # TetoNac(c): teto de mercado nacional da cultura c (kg)
     # orc_paa = OrçPAA: orçamento do PAA no Paraná (R$)
+
+    prob = pulp.LpProblem("Safra_Parana", pulp.LpMaximize)
+
+    # variável de decisão: Mód(k) = nº de módulos destinados à combinação k
+    # (inteiro >= 0, restrição 6)
+    Mod = {k: pulp.LpVariable(f"Mod_{k}", lowBound=0, cat="Integer") for k in K}
+
+    # função objetivo: max Σ Lucro(k) · Tam · Mód(k)
     prob += pulp.lpSum(Lucro[k] * Tam * Mod[k] for k in K)
 
     restricoes = []  # (descrição, expressão, limite) só para o relatório
