@@ -1,7 +1,7 @@
 import pulp
-import dados
+# import dados
 
-
+'''
 N_MODULOS = 1000
 
 AREA = {}
@@ -15,6 +15,7 @@ for c, v in dados.armazenagem().items():
     
 
 TAM = sum(AREA.values()) / N_MODULOS
+'''
 
 ################ laNNA ##########
 ### não exclui o seu marcos mas add inicio da orquestração da limopeza here.
@@ -27,6 +28,8 @@ from Solver.limpeza_dados import (
     limpar_oferta_demanda,
     limpar_precos,
 )
+from Solver.parametros import montar_parametros
+from config import ORC_PAA
 
 # LIMPEZA
 def limpar_dados() -> dict:
@@ -46,9 +49,32 @@ def main() -> None:
     for nome, valor in dados.items():
         print(f"{nome}: {len(valor)} registros")
 
-    # PARÂMETROS (falta fazer): Lucro(k), K(m), K(c), Kfam, Karm, Tam
-    # MODELO (falta fazer): PuLP
+    # K, TAM, Prod, Preco, K_m, K_area, K_teto, K_fam, K_arm e modulos_max
+    par = montar_parametros(dados)
+    print(par["tabela"][["cod_ibge", "produto", "prod_kg_ha", "preco_kg", "lucro_ha"]])
 
+    # conjuntos
+    K = par["K"]
+    K_m = par["K_m"]
+    K_area = par["K_area"]
+    K_teto = par["K_teto"]
+    K_fam = par["K_fam"]
+    K_arm = par["K_arm"]
+
+    # parametros por combinacaoo
+    Tam = par["Tam"]
+    Lucro = par["Lucro"]
+    Prod = par["Prod"]
+    Preco = par["Preco"]
+
+    # parametros que vem de dados/config
+    Area = dados["area_municipio"]
+    ArmE = dados["armazenagem"]
+    AreaEst = dados["area_estadual"]
+    TetoNa = dados["teto_nacional"]
+    OrcPAA = ORC_PAA 
+
+# MODELO (falta fazer): PuLP
 
 if __name__ == "__main__":
     main()
