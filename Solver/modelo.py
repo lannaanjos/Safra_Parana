@@ -1,16 +1,23 @@
+import math
+
 import pandas as pd
 import pulp
 
 from Solver.config import MUNICIPIOS
 
 
-def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
-   
+def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False,
+             ocupacao_minima: float = 0.0, restringir_paa: bool = True,
+             restringir_armazenagem: bool = True) -> dict:
     """Monta e resolve o modelo de programação inteira descrito no README.
 
     par: saída de montar_parametros(dados)
     dados: saída de limpar_dados()
     orc_paa: OrçPAA (R$)
+    ocupacao_minima: fração mínima (0 a 1) dos módulos de cada município que deve ser
+        plantada. 0 = não força nada (padrão); 1 = obriga a usar toda a área.
+    restringir_paa: False desliga a restrição 4 (orçamento do PAA)
+    restringir_armazenagem: False desliga a restrição 2 (armazenagem)
     """
     # ---- CONJUNTOS (índices) -------------------------------------------------
     # k = uma combinação de município e cultura (uma linha da tabela de custos)
@@ -47,9 +54,10 @@ def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
     # função objetivo: max Σ Lucro(k) · Tam · Mód(k)
     prob += pulp.lpSum(Lucro[k] * Tam * Mod[k] for k in K)
 
-    restricoes = []  # (descrição, expressão, limite) só para o relatório
+    restricoes = []  # (descrição, expressão, limite): só para o relatório de uso
 
     def add(nome, expr, limite, descricao):
+        # registra a restrição "expr <= limite" no modelo e no relatório
         prob.addConstraint(expr <= limite, nome)
         restricoes.append((descricao, expr, limite))
 
@@ -60,11 +68,12 @@ def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
                 f"1. Área - {MUNICIPIOS[m]} (ha)")
 
     # 2. armazenagem por município (kg -> t)
-    for m, ks in K_m.items():
-        ks_arm = [k for k in ks if k in K_arm]
-        if ks_arm:
-            add(f"Arm_{m}", pulp.lpSum(Prod[k] * Tam * Mod[k] / 1000 for k in ks_arm), ArmE[m],
-                f"2. Armazenagem - {MUNICIPIOS[m]} (t)")
+    if restringir_armazenagem:
+        for m, ks in K_m.items():
+            ks_arm = [k for k in ks if k in K_arm]
+            if ks_arm:
+                add(f"Arm_{m}", pulp.lpSum(Prod[k] * Tam * Mod[k] / 1000 for k in ks_arm), ArmE[m],
+                    f"2. Armazenagem - {MUNICIPIOS[m]} (t)")
 
     # 3. área plantada estadual por cultura (e safra, no caso do milho)
     for i, ((cultura, safra), ks) in enumerate(K_area.items()):
@@ -73,7 +82,7 @@ def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
                 f"3. Área estadual - {cultura} {safra} (ha)")
 
     # 4. orçamento do PAA (agricultura familiar)
-    if K_fam:
+    if restringir_paa and K_fam:
         add("PAA", pulp.lpSum(Preco[k] * Prod[k] * Tam * Mod[k] for k in K_fam), orc_paa,
             "4. Orçamento PAA (R$)")
 
@@ -82,6 +91,14 @@ def resolver(par: dict, dados: dict, orc_paa: float, msg: bool = False) -> dict:
         if ks:
             add(f"Teto_{i}", pulp.lpSum(Prod[k] * Tam * Mod[k] for k in ks), TetoNac[cultura],
                 f"5. Teto nacional - {cultura} (kg)")
+
+    # 7. (opcional) ocupação mínima: força cada município a plantar pelo menos uma
+    # fração dos seus módulos, mesmo onde o lucro é negativo
+    if ocupacao_minima > 0:
+        for m, ks in K_m.items():
+            if ks:
+                minimo = math.ceil(ocupacao_minima * par["modulos_max"][m])
+                prob.addConstraint(pulp.lpSum(Mod[k] for k in ks) >= minimo, f"OcupMin_{m}")
 
     # resolve com o CBC que já vem com o PuLP
     prob.solve(pulp.PULP_CBC_CMD(msg=msg))

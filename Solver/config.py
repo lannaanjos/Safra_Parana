@@ -31,7 +31,7 @@ def _ler(caminho: Path) -> pd.DataFrame:
 
 # ESCOLHAS DO MODELO (não vêm de CSV)
 UF = "PR"
-TAM = 100
+TAM = 1
 ORC_PAA = 62_000_000  
 SAFRA_OFERTA = "2024/25"  
 NIVEL_PRECO = "PREÇO RECEBIDO P/ PRODUTOR"
