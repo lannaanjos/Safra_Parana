@@ -1,5 +1,9 @@
 # Safra Paraná
 
+# LINK DO DRIVE COM O VIDEO
+
+[Drive](https://drive.google.com/file/d/1MfUUwzVP4aAsDwdl4-1O0dskemkD_bFj/view?usp=sharing)
+
 O trabalho descreve um modelo de otimização feito com base na análise de dados do dataset da CONAB da agricultura do Paraná, verificando a melhor combinação de culturas agrícolas em seus municípios com o objetivo de maximizar a rentabilidade agrícola total do estado.
 
 ## Justificativa do tema
